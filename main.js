@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
-
+//localhost:3000/math/mul?a=1&b=4&c=5
 app.get('/:route/:operator', (req, res) => {
   let ope = req.params.operator;
+  let route = req.params.route;
   let inputs = req.query;
 
   let inputValues = Object.values(inputs);
   console.log(req.query)
-  console.log(ope);
+  console.log(route);
 
   function opAssign(op) {
     let add = "+";
