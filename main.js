@@ -1,24 +1,13 @@
 const express = require("express");
 const app = express();
 
+app.get('/:route/:operator', (req, res) => {
+  let ope = req.params.operator;
+  let inputs = req.query;
 
-// app.get("/:route/:op", (req, res) => {
-//   //this is the object of inputs
-//   let inputs = req.query;
-//   let output = {
-//     input: inputs,
-//     substring: Object.values(inputs),
-//   }
-//   res.json(
-//     output;
-//   )
-// });
-
-app.get('/:route/:op', (req, res) => {
-  let op = req.params.op;
-  let inputs = req.query
-  let inputValues = Object.values(inputs)
-  // console.log(req.query)
+  let inputValues = Object.values(inputs);
+  console.log(req.query)
+  console.log(ope);
 
   function opAssign(op) {
     let add = "+";
@@ -37,34 +26,39 @@ app.get('/:route/:op', (req, res) => {
 
   }
 
-  function evaluation(arr) {
-    let output;
-    if (op === "add") {
-      output = arr.reduce((acc, el))
-    } else if (op === "sub") {
-      return sub;
-    } else if (op === "mul") {
-      return mul;
-    } else if (op === "div") {
-      return div;
-    }
+
+  let apple = 0;
+  if (ope === "add") {
+    apple = inputValues.reduce((acc, el) => {
+      return parseInt(acc) + parseInt(el)
+    })
+  } else if (ope === "sub") {
+    apple = inputValues.reduce((acc, el) => {
+      return parseInt(acc) - parseInt(el)
+    })
+
+  } else if (ope === "mul") {
+    apple = inputValues.reduce((acc, el) => {
+      return parseInt(acc) * parseInt(el)
+    })
+
+  } else if (ope === "div") {
+    apple = inputValues.reduce((acc, el) => {
+      return parseInt(acc) / parseInt(el)
+    })
 
   }
-
-
-  let asdf = inputValues.reduce((acc, el) => {
-    return parseInt(acc) + parseInt(el);
-    // 1 "hello" 2
-  })
   let out = {
     input: inputs,
-    substring: inputValues.join(` ${opAssign(op)} `),
-    something: opWork(inputValues)
+    substring: inputValues.join(` ${opAssign(ope)} `),
+    something: apple,
   }
-  res.send(
-    out
-  )
+  res.send(out)
+
 })
+
+
+// })
 
 app.listen(3000, (req, res) => {
   console.log("You are listening to port 3000");
